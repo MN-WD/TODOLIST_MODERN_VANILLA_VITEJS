@@ -55,4 +55,29 @@ export default class TodoList {
         // Vider l'input
         input.value = "";
     }
+
+    deleteOneByIdFromTodos(id){
+        const index = this.todos.findIndex((todo) => todo.id === id);
+        this.todos.splice(index, 1); // normalement 3 éléments (replace) mais si on met 2 c'est un delete
+    }
+
+    deleteOneByIdFromDOM(id) {
+        this.domElt.querySelector("[data-id='" + id + "']").remove();
+        // querySelector("[data-id='2']") = exemple syntaxe ou ="${id}"
+    }
+
+    async deleteOneById (id) {
+        // Supprime de la DB
+        const resp = await DB.deleteOneById(id);
+        console.log(resp);
+
+        if (resp.ok) {
+            // Supprime des todos
+            this.deleteOneByIdFromTodos(id);
+            // Supprime du DOM
+            this.deleteOneByIdFromDOM(id);
+            // Rerenderer le itemsLeftCount
+            this.renderItemsLeftCount();
+        }
+    }
 }

@@ -16,5 +16,12 @@ export default class DB {
             }),
         });
         return response.json();
+
+    }
+    static async deleteOneById (id) {
+        const response = await fetch(this.apiURL + "todos/" + id, {
+            method: "DELETE", // méthode DELETE dans mockapi
+        });
+        return response;
     }
 }
