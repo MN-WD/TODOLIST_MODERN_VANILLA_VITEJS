@@ -8,12 +8,16 @@ export default function (todo) {
           todo.completed ? "checked" : ""
         }
         onchange="window.todoList.toggleCompletedOneById(${todo.id}); this.checked" />
-        <label>${todo.content}</label>
+        <label ondblclick="this.closest('li').classList.toggle('editing')">${
+          todo.content
+        }</label>
         <button class="destroy" onclick="window.todoList.deleteOneById(${
           todo.id
         })"></button>
       </div>
-      <input class="edit" value="${todo.content}" />
+      <input class="edit" value="${
+        todo.content
+      }" onchange="window.todoList.updateOneById(${todo.id}, this.value)" />
     </li>
   `;
 }
