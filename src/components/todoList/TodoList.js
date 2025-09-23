@@ -80,4 +80,30 @@ export default class TodoList {
             this.renderItemsLeftCount();
         }
     }
+
+    async toggleCompletedOneById (id) {
+        const todo = this.todos.find((todo) => todo.id == id);
+        // find renvoie tout le tiroir qu'il trouve
+        todo.completed = !todo.completed;
+
+        // Je modifie dans la DB
+        const resp = await DB.updateOne(id);
+
+        // Je modifie la todo
+        // Je modifie le DOM
+        this.domElt.querySelector(`[data-id="${id}"]`).classList.toggle("completed");
+
+        // Rerender de l'itemsLeftCount
+        this.renderItemsLeftCount();
+    }
 }
+
+// const machin = this.todos.filter(function(tiroir) {
+//  return tiroir.completed === true;
+// }); => on fait un sous tableau indexé de ce qu'on a filtré (les todos dont le completed = true)
+// On peut rendre une fonction anonyme en fléchée et on peut enlever le return donc pas d'accolades
+// this.todos.filter((todo) => todo.completed === true);
+
+// find = on prend un élément
+// findIndex = on prend le numéro du tiroir de cet élément
+// même explication que filter pour écriture

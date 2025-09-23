@@ -6,7 +6,8 @@ export default function (todo) {
       <div class="view">
         <input class="toggle" type="checkbox" ${
           todo.completed ? "checked" : ""
-        } />
+        }
+        onchange="window.todoList.toggleCompletedOneById(${todo.id}); this.checked" />
         <label>${todo.content}</label>
         <button class="destroy" onclick="window.todoList.deleteOneById(${
           todo.id

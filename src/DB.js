@@ -24,4 +24,16 @@ export default class DB {
         });
         return response;
     }
+
+    static async updateOne (todo) {
+        const response = await fetch(this.apiURL + "todos/" + todo.id, {
+            method: "PUT", // méthode PUT dans mockapi
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                content: todo.content,
+                completed: todo.completed,
+            }),
+        });
+        return response;
+    }
 }
